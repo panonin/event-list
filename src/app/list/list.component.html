@@ -1,0 +1,22 @@
+<div class="list">
+  <div class="list__header">
+    <h1 class="list__title">Список событий</h1>
+    <button pButton label="Добавить событие" routerLink="/edit"></button>
+  </div>
+  <span *ngIf="!events || events.length < 1">Событий пока нет :(</span>
+  <div class="list__items" *ngIf="events">
+    <app-list-item
+      *ngFor="let event of events"
+      [name]="event.name"
+      [description]="event.description"
+      [date]="event.date"
+      [editable]="event.editable"
+      (undoEdit)="undoEventEdit(event)"
+      (edit)="editEvent(event)"
+      (delete)="deleteEvent(event)"
+    ></app-list-item>
+  </div>
+  <p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-outlined"></p-confirmDialog>
+  <p-toast></p-toast>
+</div>
+

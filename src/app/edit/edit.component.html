@@ -1,0 +1,91 @@
+<div class="edit">
+  <h1 class="edit__title" *ngIf="!event">Новое событие</h1>
+  <h1 class="edit__title" *ngIf="event">Редактирование события</h1>
+  <form [formGroup]="form">
+    <div class="p-field">
+      <label for="name">Название*</label>
+      <input
+        id="name"
+        type="text"
+        pInputText
+        formControlName="name"
+        [class.p-invalid]="isControlInvalid('name')"
+      >
+      <small
+        *ngIf="isControlInvalid('name')"
+        class="p-invalid"
+        id="name-help"
+      >Введите название мероприятия
+      </small>
+    </div>
+    <div class="p-field">
+      <label for="description">Описание</label>
+      <textarea
+        id="description"
+        type="text"
+        pInputTextarea
+        formControlName="description"
+      ></textarea>
+    </div>
+    <div class="p-field">
+      <label for="date">Дата*</label>
+      <p-calendar
+        formControlName="date"
+        [readonlyInput]="true"
+        id="date"
+        inputId="date"
+        dateFormat="dd.mm.yy"
+        [class.p-invalid]="isControlInvalid('date')"
+      ></p-calendar>
+      <small
+        *ngIf="isControlInvalid('date')"
+        class="p-invalid"
+        id="date-help"
+      >Выберите дату
+      </small>
+    </div>
+    <button
+      *ngIf="!event"
+      pButton
+      label="Создать"
+      (click)="create()"
+      [disabled]="form.invalid"></button>
+    <button
+      *ngIf="event"
+      pButton
+      label="Сохранить"
+      (click)="save()"
+      [disabled]="form.invalid"></button>
+  </form>
+  <p-toast key="ct"></p-toast>
+  <p-toast key="ud">
+    <ng-template let-message pTemplate="message">
+      <div class="p-flex p-flex-column" style="flex: 1">
+        <div class="p-text-center">
+          <h4>{{message.summary}}</h4>
+          <p>{{message.detail}}</p>
+        </div>
+        <div class="p-grid p-fluid">
+          <div class="p-col-6">
+            <button type="button" pButton (click)="undo()" label="Отменить" class="p-button-danger"></button>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </p-toast>
+  <p-toast>
+    <ng-template let-message pTemplate="message">
+      <div class="p-flex p-flex-column" style="flex: 1">
+        <div class="p-text-center">
+          <h4>{{message.summary}}</h4>
+          <p>{{message.detail}}</p>
+        </div>
+        <div class="p-grid p-fluid">
+          <div class="p-col-6">
+            <button type="button" pButton (click)="undo()" label="Отменить" class="p-button-danger"></button>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </p-toast>
+</div>
